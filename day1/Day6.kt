@@ -9,12 +9,6 @@ class Day6 {
         Pair('>',Pair(0,1))
     )
 
-    private val guardTracing = mapOf(
-        Pair('<','-'),
-        Pair('>','-'),
-        Pair('v','|'),
-        Pair('^','|')
-    )
     fun patrollingGuard() : Int{
         val map = ArrayList<ArrayList<Char>>()
         var guardX = -1
@@ -57,7 +51,6 @@ class Day6 {
 
                 mapCopy[newObstY][newObstX] = '#'
 
-
                 while (true){
                     val nextGuardX = guardX + guardDeltaX
                     val nextGuardY = guardY + guardDeltaY
@@ -68,21 +61,24 @@ class Day6 {
                     val nextTile = mapCopy[nextGuardY][nextGuardX]
 
                     if (nextTile == '#'){ //wall
+                        guardVisual = changeDirection(guardVisual)
+                        guardDeltaY = guardDirections[guardVisual]!!.first
+                        guardDeltaX = guardDirections[guardVisual]!!.second
 
                     }
 
-                    else if (nextTile == '.'){ // vacant
+                    else if (nextTile != guardVisual){ // vacant
+                        mapCopy[nextGuardY][nextGuardX] = guardVisual
+                        guardX = nextGuardX
+                        guardY = nextGuardY
 
                     }
-
                     else{
-                        if (nextTile == '+'){ // been here before
-                            possibleLoops++
-                            break
-                        }
-                        elseif
-
+                        possibleLoops++
+                        break
                     }
+
+
 
 
                 }
